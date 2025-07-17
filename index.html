@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Truck Ad Banner Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      background: #f9f9f9;
+    }
+    .hero {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+    }
+    .overlay-button {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      pointer-events: auto;
+    }
+    .flex-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Button Styling */
+    .bg-green { background-color: #3FF2C8; }
+    .hover\:bg-green-200:hover { background-color: #76f2d9; }
+    .hover\:shadow-\[0px_6px_30px_0px_rgba\(63\,242\,200\,0\.40\)\]:hover {
+      box-shadow: 0px 6px 30px 0px rgba(63,242,200,0.4);
+    }
+    .text-white { color: white; }
+    .text-base { font-size: 1rem; }
+    .leading-5 { line-height: 1.25rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .transition-300 { transition: all 0.3s ease; }
+    .active\:scale-95:active { transform: scale(0.95); }
+    .disabled\:!bg-gray:disabled { background-color: gray !important; }
+    .disabled\:text-gray-100:disabled { color: #f0f0f0; }
+    .disabled\:pointer-events-none:disabled { pointer-events: none; }
+    .!h-11 { height: 2.75rem !important; }
+    .max-sm\:!px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .icon-arrow::after {
+      content: '↗';
+      display: inline-block;
+    }
+
+    .modern-upload-btn {
+  background-color: #3FF2C8;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0px 4px 20px rgba(63, 242, 200, 0.15);
+}
+
+.modern-upload-btn:hover {
+  background-color: #76f2d9;
+  transform: scale(1.03);
+  box-shadow: 0px 6px 30px rgba(63, 242, 200, 0.4);
+  filter: brightness(1.05);
+}
+
+.modern-upload-btn:active {
+  transform: scale(0.97);
+}
+
+.modern-upload-btn:disabled {
+  background-color: gray !important;
+  color: #f0f0f0;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <model-viewer id="truckViewer"
+      src="Marjon.glb"
+      camera-controls
+      auto-rotate
+      ar
+      shadow-intensity="1"
+      exposure="1"
+      environment-image="neutral"
+      alt="3D Truck Model">
+    </model-viewer>
+
+    <!-- Upload Button Overlay -->
+    <div class="overlay-button">
+      <input type="file" accept="image/*" id="uploadInput" style="display: none"/>
+      <button id="uploadBtn" type="button"
+  class="modern-upload-btn">
+  <span class="flex-center gap-2 whitespace-nowrap">
+    <span>Ставь свой баннер</span>
+    <span class="icon-arrow text-2xl"></span>
+  </span>
+</button>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('uploadInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const viewer = document.getElementById('truckViewer');
+
+    let writeMaterial = null;
+
+    viewer.addEventListener('load', async () => {
+      const materials = viewer.model?.materials;
+      if (!materials) {
+        alert("No materials found on model.");
+        return;
+      }
+
+      writeMaterial = materials.find(mat => mat.name === 'write');
+      if (!writeMaterial) {
+        alert("Material 'write' not found on the model.");
+      } else {
+        console.log("Found material:", writeMaterial.name);
+      }
+    });
+
+    uploadBtn.addEventListener('click', () => input.click());
+
+    input.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file || !writeMaterial) return;
+
+      const imgURL = URL.createObjectURL(file);
+      const texture = await viewer.createTexture(imgURL);
+
+      // Set the texture correctly
+      writeMaterial.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+    });
+  </script>
+</body>
+</html>
