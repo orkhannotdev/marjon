@@ -19,144 +19,340 @@
       position: relative;
       overflow: hidden;
     }
+
+    .viewer-container {
+      width: 100%;
+      height: 100%;
+      cursor: url('cursor.cur'), auto;
+    }
+    .viewer-container:active {
+      cursor: url('cursor.cur'), auto;
+    }
+
     model-viewer {
       width: 100%;
       height: 100%;
       background-color: #fff;
     }
-    .overlay-button {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      pointer-events: auto;
-    }
-    .flex-center {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    /* Button Styling */
-    .bg-green { background-color: #3FF2C8; }
-    .hover\:bg-green-200:hover { background-color: #76f2d9; }
-    .hover\:shadow-\[0px_6px_30px_0px_rgba\(63\,242\,200\,0\.40\)\]:hover {
-      box-shadow: 0px 6px 30px 0px rgba(63,242,200,0.4);
-    }
-    .text-white { color: white; }
-    .text-base { font-size: 1rem; }
-    .leading-5 { line-height: 1.25rem; }
-    .rounded-xl { border-radius: 0.75rem; }
-    .transition-300 { transition: all 0.3s ease; }
-    .active\:scale-95:active { transform: scale(0.95); }
-    .disabled\:!bg-gray:disabled { background-color: gray !important; }
-    .disabled\:text-gray-100:disabled { color: #f0f0f0; }
-    .disabled\:pointer-events-none:disabled { pointer-events: none; }
-    .!h-11 { height: 2.75rem !important; }
-    .max-sm\:!px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-    .icon-arrow::after {
-      content: '↗';
-      display: inline-block;
-    }
+    /* Upload Button */
+    .upload-container {
+  position: absolute;
+  bottom: 160px; /* was 120 or 100 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+}
 
-    .modern-upload-btn {
+.modern-upload-btn {
   background-color: #3FF2C8;
-  color: white;
+  color: #fff;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: 2rem;
+  font-size: 16px;
+  padding: 16px 36px;
+  border-radius: 12px;
   border: none;
-  outline: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.25s ease-in-out;
-  box-shadow: 0px 4px 20px rgba(63, 242, 200, 0.15);
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 6px 14px rgba(63, 242, 200, 0.25);
+  font-family: 'Inter', sans-serif;
 }
 
 .modern-upload-btn:hover {
-  background-color: #76f2d9;
+  background-color: #5ff3d4;
   transform: scale(1.03);
-  box-shadow: 0px 6px 30px rgba(63, 242, 200, 0.4);
-  filter: brightness(1.05);
+  box-shadow: 0px 8px 24px rgba(63, 242, 200, 0.4);
 }
 
 .modern-upload-btn:active {
-  transform: scale(0.97);
+  transform: scale(0.96);
 }
 
 .modern-upload-btn:disabled {
-  background-color: gray !important;
+  background-color: #ccc !important;
   color: #f0f0f0;
-  pointer-events: none;
+  cursor: not-allowed;
   opacity: 0.7;
+}
+
+.icon-arrow::after {
+  content: '→';
+  font-size: 18px;
+  display: inline-block;
+}
+
+    /* Thumbnail Row */
+    .thumb-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.model-thumb {
+  aspect-ratio: 2 / 1;
+  width: 200px;
+  object-fit: contain;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+
+
+
+
+
+    /* Left/Right Arrows on sides of viewport */
+    .side-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: white;
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 15;
+    }
+
+    .left-arrow { left: 16px; }
+    .right-arrow { right: 16px; }
+    @media screen and (max-width: 768px) {
+  .model-thumb {
+    width: 22%;
+    padding: 2px;
+  }
+
+  .thumb-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.model-thumb {
+  aspect-ratio: 2 / 1;
+  width: 140px;
+  object-fit: contain;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+.model-thumb.selected {
+  border-color: #3FF2C8;
+}
+}
+
+@media screen and (max-width: 768px) {
+  .model-thumb {
+    width: 22%;
+    padding: 4px;
+  }
+
+  .thumb-nav {
+    gap: 0.5rem;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+
+  .thumb-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .thumb-nav {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .upload-container {
+    bottom: 110px;
+  }
+}
+
+@media screen and (max-width: 508px) {
+  .model-thumb {
+    aspect-ratio: 1 / 1;
+    width: 22%;
+    padding: 4px;
+  }
+
+  .thumb-nav {
+    gap: 0.5rem;
+    max-width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+
+  .thumb-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .thumb-nav {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .upload-container {
+    bottom: 120px;
+  }
 }
 
   </style>
 </head>
 <body>
   <div class="hero">
-    <model-viewer id="truckViewer"
-      src="Marjon.glb"
-      camera-controls
-      auto-rotate
-      ar
-      shadow-intensity="1"
-      exposure="1"
-      environment-image="neutral"
-      alt="3D Truck Model">
-    </model-viewer>
+    <!-- Wrapped model-viewer in container -->
+    <div class="viewer-container">
+      <model-viewer id="truckViewer"
+        src="Marjon.glb"
+        camera-controls
+        auto-rotate
+        ar
+        shadow-intensity="1"
+        exposure="1"
+        environment-image="neutral"
+        alt="3D Truck Model"
+        interaction-prompt="none">
+      </model-viewer>
+    </div>
 
-    <!-- Upload Button Overlay -->
-    <div class="overlay-button">
+    <!-- Left/Right Arrows (over model-viewer) -->
+    <button class="side-arrow left-arrow" id="arrowLeft">&#10094;</button>
+    <button class="side-arrow right-arrow" id="arrowRight">&#10095;</button>
+
+    <!-- Upload Button ABOVE thumbnail row -->
+    <div class="upload-container">
       <input type="file" accept="image/*" id="uploadInput" style="display: none"/>
-      <button id="uploadBtn" type="button"
-  class="modern-upload-btn">
-  <span class="flex-center gap-2 whitespace-nowrap">
-    <span>Ставь свой баннер</span>
-    <span class="icon-arrow text-2xl"></span>
-  </span>
-</button>
+      <button id="uploadBtn" type="button" class="modern-upload-btn">
+        <span>Ставь свой баннер</span>
+        <span class="icon-arrow"></span>
+      </button>
+      
+    </div>
+
+    <!-- Thumbnail Row -->
+    <div class="thumb-nav">
+      <img src="isuzu.png" alt="Isuzu" data-model="marjon.glb" data-poster="isuzu.png" class="model-thumb selected" style="border: 2px solid #3FF2C8;">
+      <img src="volvo.png" alt="Volvo" data-model="volvo.glb" data-poster="volvo.png" class="model-thumb">
+      <img src="kiabongo.png" alt="Kia Bongo" data-model="kiabongo.glb" data-poster="kiabongo.png" class="model-thumb">
+      <img src="malibu.png" alt="Malibu" data-model="malibu.glb" data-poster="malibu.png" class="model-thumb">
     </div>
   </div>
 
   <script>
-    const input = document.getElementById('uploadInput');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const viewer = document.getElementById('truckViewer');
+  const input = document.getElementById('uploadInput');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const viewer = document.getElementById('truckViewer');
+  const thumbnails = document.querySelectorAll('.model-thumb');
+  let currentIndex = 0;
+  let writeMaterial = null;
 
-    let writeMaterial = null;
+  viewer.addEventListener('load', async () => {
+    const materials = viewer.model?.materials;
+    if (!materials) {
+      alert("No materials found on model.");
+      return;
+    }
 
-    viewer.addEventListener('load', async () => {
-      const materials = viewer.model?.materials;
-      if (!materials) {
-        alert("No materials found on model.");
-        return;
-      }
+    writeMaterial = materials.find(mat => mat.name === 'write');
+    if (!writeMaterial) {
+      alert("Material 'write' not found on the model.");
+      return;
+    }
 
-      writeMaterial = materials.find(mat => mat.name === 'write');
-      if (!writeMaterial) {
-        alert("Material 'write' not found on the model.");
-      } else {
-        console.log("Found material:", writeMaterial.name);
-      }
+    console.log("Found material:", writeMaterial.name);
+
+    // Apply default template.jpg as texture
+    const defaultTextureURL = 'template.jpg';
+    const texture = await viewer.createTexture(defaultTextureURL);
+    writeMaterial.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+  });
+
+  uploadBtn.addEventListener('click', () => input.click());
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file || !writeMaterial) return;
+
+    const imgURL = URL.createObjectURL(file);
+    const texture = await viewer.createTexture(imgURL);
+    writeMaterial.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+  });
+
+  function updateViewer(index) {
+    const selected = thumbnails[index];
+    if (!selected) return;
+
+    viewer.src = selected.dataset.model;
+    viewer.poster = selected.dataset.poster;
+
+    thumbnails.forEach(th => {
+      th.classList.remove('selected');
+      th.style.borderColor = 'transparent';
     });
 
-    uploadBtn.addEventListener('click', () => input.click());
+    selected.classList.add('selected');
+    selected.style.borderColor = '#3FF2C8';
+    currentIndex = index;
+  }
 
-    input.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file || !writeMaterial) return;
+  thumbnails.forEach((thumb, idx) => {
+    thumb.addEventListener('click', () => updateViewer(idx));
+  });
 
-      const imgURL = URL.createObjectURL(file);
-      const texture = await viewer.createTexture(imgURL);
+  document.getElementById('arrowLeft').addEventListener('click', () => {
+    const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+    updateViewer(newIndex);
+  });
 
-      // Set the texture correctly
-      writeMaterial.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
-    });
-  </script>
+  document.getElementById('arrowRight').addEventListener('click', () => {
+    const newIndex = (currentIndex + 1) % thumbnails.length;
+    updateViewer(newIndex);
+  });
+</script>
+
 </body>
 </html>
