@@ -212,17 +212,17 @@
 
 @media screen and (max-width: 508px) {
   .model-thumb {
-    aspect-ratio: 1 / 1;
-    width: 22%;
+    aspect-ratio: 1 / 1;  
+    width: 23%;
     padding: 4px;
   }
 
   .thumb-nav {
-    gap: 0.5rem;
+    gap: 1rem;
     max-width: 100%;
     flex-wrap: nowrap;
     overflow-x: auto;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 0 1rem;
   }
 
@@ -251,6 +251,23 @@
     font-size: 16px;
   }
 }
+@media screen and (max-width: 768px) {
+  .side-arrow {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000;
+    box-shadow: none;
+  }
+}
+
+model-viewer::part(default-ar-button) {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  transform: none;
+  margin: 0;
+  z-index: 20;
+}
+
 
   </style>
 </head>
@@ -262,6 +279,7 @@
         src="Marjon.glb"
         camera-controls
         auto-rotate
+        ar
         poster="isuzu.png"
         shadow-intensity="1"
         exposure="1"
@@ -368,7 +386,6 @@
 
 </body>
 </html>
-
 
 
 
