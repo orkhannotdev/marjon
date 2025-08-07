@@ -9,23 +9,18 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       font-family: sans-serif;
       background: #ffffff;
     }
 
-    .hero {
-      width: 100%;
-      height: auto;
-      position: relative;
-      overflow: hidden;
-    }
-
     .viewer-container {
-      width: 100%;
-      height: 100vh;
-      cursor: url('cursor.cur'), auto;
+      flex: 1 1 auto;
       position: relative;
+      width: 100%;
+      cursor: url('cursor.cur'), auto;
     }
 
     model-viewer {
@@ -35,7 +30,7 @@
     }
 
     .upload-container {
-      margin-top: 20px;
+      margin: 12px 0 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -82,7 +77,7 @@
     }
 
     .thumb-nav {
-      margin-top: 20px;
+      margin: 12px 0 16px;
       display: flex;
       justify-content: center;
       gap: 1rem;
@@ -131,13 +126,8 @@
       justify-content: center;
     }
 
-    .left-arrow {
-      left: 16px;
-    }
-
-    .right-arrow {
-      right: 16px;
-    }
+    .left-arrow { left: 16px; }
+    .right-arrow { right: 16px; }
 
     @media screen and (max-width: 768px) {
       .model-thumb {
@@ -182,13 +172,8 @@
         color: #333;
       }
 
-      .left-arrow {
-        left: 8px;
-      }
-
-      .right-arrow {
-        right: 8px;
-      }
+      .left-arrow { left: 8px; }
+      .right-arrow { right: 8px; }
     }
 
     @media screen and (max-width: 508px) {
@@ -217,32 +202,26 @@
       width: 32px;
       height: 32px;
     }
-
   </style>
 </head>
 <body>
-  <div class="hero">
-    <div class="viewer-container">
-      <model-viewer id="truckViewer"
-        src="Marjon.glb"
-        camera-controls
-        auto-rotate
-        ar
-        poster="isuzu.png"
-        shadow-intensity="1"
-        exposure="1"
-        environment-image="neutral"
-        alt="3D Truck Model"
-        interaction-prompt="none">
-      </model-viewer>
-
-      <!-- Left/Right Arrows -->
-      <button class="side-arrow left-arrow" id="arrowLeft">&#10094;</button>
-      <button class="side-arrow right-arrow" id="arrowRight">&#10095;</button>
-    </div>
+  <div class="viewer-container">
+    <model-viewer id="truckViewer"
+      src="Marjon.glb"
+      camera-controls
+      auto-rotate
+      ar
+      poster="isuzu.png"
+      shadow-intensity="1"
+      exposure="1"
+      environment-image="neutral"
+      alt="3D Truck Model"
+      interaction-prompt="none">
+    </model-viewer>
+    <button class="side-arrow left-arrow" id="arrowLeft">&#10094;</button>
+    <button class="side-arrow right-arrow" id="arrowRight">&#10095;</button>
   </div>
 
-  <!-- Upload Button BELOW model-viewer -->
   <div class="upload-container">
     <input type="file" accept="image/*" id="uploadInput" style="display: none"/>
     <button id="uploadBtn" type="button" class="modern-upload-btn">
@@ -251,7 +230,6 @@
     </button>
   </div>
 
-  <!-- Thumbnails BELOW upload -->
   <div class="thumb-nav">
     <img src="isuzu.png" alt="Isuzu" data-model="Marjon.glb" data-poster="isuzu.png" class="model-thumb selected" style="border: 2px solid #3FF2C8;">
     <img src="volvo.png" alt="Volvo" data-model="volvo.glb" data-poster="volvo.png" class="model-thumb">
@@ -279,8 +257,6 @@
         alert("Material 'write' not found on the model.");
         return;
       }
-
-      console.log("Found material:", writeMaterial.name);
 
       const defaultTextureURL = 'template.jpg';
       const texture = await viewer.createTexture(defaultTextureURL);
