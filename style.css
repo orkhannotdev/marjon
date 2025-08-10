@@ -1,0 +1,196 @@
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+      background: #ffffff;
+    }
+
+    .viewer-container {
+      flex: 1 1 auto;
+      position: relative;
+      width: 100%;
+      cursor: url('cursor.cur'), auto;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+    }
+
+    .upload-container {
+      margin: 12px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modern-upload-btn {
+      background-color: #3FF2C8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px 26px;
+      border-radius: 12px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0px 6px 14px rgba(63, 242, 200, 0.25);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .modern-upload-btn:hover {
+      background-color: #5ff3d4;
+      transform: scale(1.03);
+      box-shadow: 0px 8px 24px rgba(63, 242, 200, 0.4);
+    }
+
+    .modern-upload-btn:active {
+      transform: scale(0.96);
+    }
+
+    .modern-upload-btn:disabled {
+      background-color: #ccc !important;
+      color: #f0f0f0;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .icon-arrow::after {
+      content: '→';
+      font-size: 18px;
+      display: inline-block;
+    }
+
+    .thumb-nav {
+      margin: 12px 0 16px;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 900px;
+      padding: 0 1rem;
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      flex-wrap: wrap;
+    }
+
+    .model-thumb {
+      aspect-ratio: 2 / 1;
+      width: 200px;
+      object-fit: contain;
+      border-radius: 16px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.2s ease;
+      box-sizing: border-box;
+      background: #fff;
+      padding: 6px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .model-thumb.selected {
+      border-color: #3FF2C8;
+    }
+
+    .side-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: white;
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .left-arrow { left: 16px; }
+    .right-arrow { right: 16px; }
+
+    @media screen and (max-width: 768px) {
+      .model-thumb {
+        width: 22%;
+        padding: 4px;
+      }
+
+      .thumb-nav {
+        gap: 1rem;
+        max-width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: center;
+        padding: 0 1rem;
+      }
+
+      .thumb-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .thumb-nav {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .modern-upload-btn {
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        gap: 6px;
+      }
+
+      .icon-arrow::after {
+        font-size: 16px;
+      }
+
+      .side-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+        background-color: rgba(255, 255, 255, 0.85);
+        color: #333;
+      }
+
+      .left-arrow { left: 2px; }
+      .right-arrow { right: 2px; }
+    }
+
+    @media screen and (max-width: 508px) {
+      .model-thumb {
+        aspect-ratio: 1 / 1;
+        width: 23%;
+        padding: 4px;
+      }
+    }
+
+    model-viewer::part(default-ar-button) {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      transform: none;
+      margin: 0;
+      z-index: 20;
+      width: 60px;
+      height: 60px;
+      font-size: 44px;
+      padding: 12px;
+      border-radius: 40px;
+    }
+
+    model-viewer::part(default-ar-button) #view_x5F_in_x5F_AR_x5F_icon {
+      width: 32px;
+      height: 32px;
+    }
